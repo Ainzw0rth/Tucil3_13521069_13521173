@@ -16,7 +16,7 @@ class activeNode {
     input : weighted adj matrix, start node index, target node index
     input format : 0-indexed
     output : arrays of pair, shortest path from start to target with ucs algorithm
-    ex input/output : start = 1, path = [2,3,4] means the path is 1->2->3->4
+    ex output : path = [1,2,3,4] means the path is 1->2->3->4
 */
 function ucs(adjMatrix : number[][], start : number, target : number) : number[] {
     // Input Output variable
@@ -31,7 +31,7 @@ function ucs(adjMatrix : number[][], start : number, target : number) : number[]
     const queue : PriorityQueue<activeNode> = new PriorityQueue<activeNode>(comparator);
     
     // start search from start node
-    const startNode : activeNode = new activeNode(start, [], 0);
+    const startNode : activeNode = new activeNode(start, [start], 0);
     visited[start] = true;
     queue.enqueue(startNode);
 
