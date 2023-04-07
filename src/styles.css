@@ -1,0 +1,49 @@
+body {
+    background-color: #526bb0;
+}
+
+h1 {
+    text-align: center ;
+    color: white;
+    position: relative;
+    ;
+}
+
+svg {
+    background-color: aliceblue;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gainsboro;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.canvas {
+    width: 1400px;
+    height: 800px;
+    background-color: aliceblue;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gainsboro;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.circle {
+    fill: black;
+}
+
+.bar {
+    background-color: black;
+}
+
+.links line {
+    stroke-opacity: 0.6;
+}
+
+.nodes circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+}
