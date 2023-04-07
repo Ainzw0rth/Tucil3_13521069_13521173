@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="styles.css">
 
 <head>
-    <h1> Tucil 3 - Tanpa Maps</h1>
+    <h1> Tucil 3 - Dengan Maps</h1>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src = "script.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,23 +16,11 @@
         <div class="inlinetoggle">
             <div class="text">Pakai maps?</div>
             <label class="switch">
-                <input type="checkbox" id="gotomaps" onclick="return gotomaps();">
-                <span class="slider round"></span>
+                <input type="checkbox" id="gotowithoutmaps" onclick="return gotowithoutmaps();">
+                <span class="slider2 round"></span>
             </label>
         </div>
     </div>
-    
-    <div class="sidenav2">
-        <div class="getfilebutton">
-            <input type="button" id="get_file" value="Masukkan file">
-            <input type="file" id="my_file">
-        </div>
 
-        <form action="/action_page.php" class="inputform">
-            <input type="text" placeholder="Start Node" class="inputspace"><br><br>
-            <input type="text" placeholder="Destination Node" class="inputspace"><br><br>
-            <input type="submit" value="Submit" class="submitbutton">
-        </form>
-    </div>
     <svg width="1400" height="800"></svg>
 </body>

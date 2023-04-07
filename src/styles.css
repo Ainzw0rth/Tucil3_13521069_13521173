@@ -1,42 +1,34 @@
+/* style buat body */
 body {
-    background-color: #526bb0;
+    background-color: #15181f;
+    background-image: linear-gradient(to bottom right, #212429, #20232a);
+    font-family: 'Miriam Libre', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
+/* style buat header 1 */
 h1 {
     text-align: center ;
     color: white;
     position: relative;
-    ;
+    padding-bottom: 25px;
 }
 
+/* style buat svg */
 svg {
-    background-color: aliceblue;
+    background-color: #2b2b33;
     border-style: solid;
-    border-width: 1px;
-    border-color: gainsboro;
+    border-width: 0px;
+    border-radius: 25px;
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 19%;
+    box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
+    background-image: linear-gradient(to bottom right, #292a2c, #23262d);
 }
 
-.canvas {
-    width: 1400px;
-    height: 800px;
-    background-color: aliceblue;
-    border-style: solid;
-    border-width: 1px;
-    border-color: gainsboro;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
+/* buat nodes */
 .circle {
     fill: black;
-}
-
-.bar {
-    background-color: black;
 }
 
 .links line {
@@ -46,4 +38,231 @@ svg {
 .nodes circle {
     stroke: #fff;
     stroke-width: 1.5px;
+}
+
+/* input file */
+#my_file {
+    display: none;
+}
+
+#get_file {
+    background: #f9f9f9;
+    width: 120px;
+    border: beige;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    position: relative;
+    left: 23%;
+    background-image: linear-gradient(to bottom right, #fa07ad, #6230df);
+    margin-bottom: 70px;
+    font-family: 'Miriam Libre', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20;
+    font-weight: 500;
+    box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
+}
+
+/* side navbar untuk toggle */
+.sidenav {
+    height: 60px; /* Full-height: remove this if you want "auto" height */
+    width: 250px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #292a2f; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: hidden;
+    padding-top: 20px;
+    box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
+    background-image: linear-gradient(to bottom right, #292a2c, #23262d);
+    margin-top: 170px;
+    margin-left: 30px;
+    border-style: solid;
+    border-width: 0px;
+    border-radius: 25px;
+}
+
+/* side navbar untuk input file dan node */
+.sidenav2 {
+    height: 340px; /* Full-height: remove this if you want "auto" height */
+    width: 250px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    bottom: 0;
+    left: 0;
+    background-color: #292a2f; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: hidden;
+    padding-top: 20px;
+    box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
+    background-image: linear-gradient(to bottom right, #292a2c, #23262d);
+    margin-bottom: 140px;
+    margin-left: 30px;
+    border-style: solid;
+    border-width: 0px;
+    border-radius: 25px;
+}
+
+/* toggle pakai maps */
+.inlinetoggle {
+    width:150px;
+    position: relative;
+    left: 10%;
+    height: 70px;
+
+}
+
+.text {
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    position: relative;
+    left: 10%;
+    margin-top: 10px;
+}
+
+.switch {
+    margin-bottom: 100px;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    left: 20%;
+    box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
+}
+
+.text, .switch {
+    display: inline-block;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-image: linear-gradient(to bottom right, #fa07ad, #6230df);
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.slider2 {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(to bottom right, #fa07ad, #6230df);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider2:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 30px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider2 {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+input:checked + .slider2:before {
+    background-image: linear-gradient(to bottom right, #fa07ad, #6230df);
+}
+
+.slider2.round {
+    border-radius: 34px;
+}
+
+.slider2.round:before {
+    border-radius: 50%;
+}
+
+.inputform {
+    position: relative;
+    left: 15%;
+}
+
+.submitbutton {
+    background: #f9f9f9;
+    width: 120px;
+    border: beige;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    position: relative;
+    left: 9%;
+    background-image: linear-gradient(to bottom right, #fa07ad, #6230df);
+    font-family: 'Miriam Libre', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20;
+    font-weight: 500;
+    box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
+}
+
+.inputspace {
+    position: relative;
+    border-style: solid;
+    border-width: 0px;
+    border-radius: 10px;
+    width: 180px;
+    height: 30px;
+    right: 6%;
+    box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
+    padding-left: 20px;
+    font-family: 'Miriam Libre', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20;
+    font-weight: 500;
 }

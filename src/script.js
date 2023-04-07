@@ -107,6 +107,26 @@ function ticked() {
     });
 }
 
+document.getElementById('get_file').onclick = function() {
+  document.getElementById('my_file').click();
+};
+
+function gotomaps(){
+  if(document.getElementById('gotomaps').checked){
+      window.location='indexmap.html';
+      return false;
+  }
+  return true;
+}
+
+function gotowithoutmaps(){
+  if(document.getElementById('gotowithoutmaps').checked){
+    window.location='index.html';
+    return false;
+  }
+  return true;
+}
+
 // function dragstarted(d) {
 //   if (!d3.event.active) simulation.alphaTarget(0.3).restart();
 //   d.fx = d.x;
