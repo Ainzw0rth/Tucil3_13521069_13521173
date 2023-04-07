@@ -1,5 +1,5 @@
 export class PriorityQueue <T> {
-    array : T[];
+    private array : T[];
     private compareFunction : (a : T, b : T) => number
 
     constructor(compareFunction : (a : T, b : T) => number) {

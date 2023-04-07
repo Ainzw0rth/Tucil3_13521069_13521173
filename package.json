@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "program" : "tsc && src\\index.html"
+    }
+}
