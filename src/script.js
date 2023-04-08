@@ -111,6 +111,18 @@ document.getElementById('get_file').onclick = function() {
   document.getElementById('my_file').click();
 };
 
+document.getElementById('my_file').onchange = function() {
+  const file = this.files[0];
+  try {
+    input = inputFromFile(file);
+    console.log("success");
+    console.log(input);
+    // TODO : ubah hasil input jadi graf
+  }catch(err){
+    console.log(err); // TODO : tampilin error beneran
+  }
+};
+
 function gotomaps(){
   if(document.getElementById('gotomaps').checked){
       window.location='indexmap.html';
