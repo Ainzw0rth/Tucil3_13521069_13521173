@@ -1,4 +1,4 @@
-// inisialisasi svg
+//initilize svg
 var svg = d3.select("svg");
 var width = svg.attr("width");
 var height = svg.attr("height");
@@ -8,35 +8,14 @@ var height = svg.attr("height");
 var nodes = [
     {name: "1"},
     {name: "2"},
-    {name: "3"},
-    {name: "4"},
-    {name: "5"},
-    {name: "6"},
-    {name: "7"},
-    {name: "8"},
-    {name: "9"},
-    {name: "10"},
-    {name: "12"},
 ];
 
 // daftar hubungan antar node
 var links = [
-    {source: "1", target: "2", distance: "40"},
-    {source: "1", target: "5", distance: "40"},
-    {source: "1", target: "6", distance: "40"},
-    {source: "2", target: "3", distance: "40"},
-    {source: "2", target: "7", distance: "40"},
-    {source: "3", target: "4", distance: "40"},
-    {source: "8", target: "3", distance: "40"},
-    {source: "4", target: "5", distance: "40"},
-    {source: "4", target: "9", distance: "40"},
-    {source: "5", target: "10", distance: "40"},  
-    {source: "12", target: "10", distance: "140"},
 ];
 
 // daftar hubungan antar node yang merupakan shortest path
 var links2 = [
-    {source: "12", target: "10", distance: "140"},
 ];
 
 var simulation = d3.forceSimulation(nodes)
@@ -165,10 +144,10 @@ document.getElementById('get_file').onclick = function() {
   document.getElementById('my_file').click();
 };
 
-document.getElementById('my_file').onchange = function() {
+document.getElementById('my_file').onchange = async function() {
   const file = this.files[0];
   try {
-    input = inputFromFile(file);
+    input = await inputFromFile(file);
     console.log("success");
     console.log(input);
     // TODO : ubah hasil input jadi graf
@@ -201,4 +180,29 @@ function isItInList(links, data){
     }
   }
   return false;
+}
+
+function refresh() {
+  simulation.nodes(nodes).restart();
+  node = node.data(nodes, function(d) { return d.name; });
+  node.exit().remove();
+  node = node.enter().append("circle")
+      .attr("r", 15)
+      .attr("fill", function(d) {
+        return "red";
+      })
+      .merge(node)
+      .call(
+        d3
+          .drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended)
+      );
+  nodelabel = nodelabel.data(nodes, function(d) { return d.name; });
+  nodelabel.exit().remove();
+  nodelabel = nodelabel.enter().append("text")
+      .attr("class", "node-label")
+      .text(function(d) { return d.name; })
+      .merge(nodelabel);
 }
