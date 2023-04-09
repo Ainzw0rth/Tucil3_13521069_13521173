@@ -143,3 +143,5 @@ function gotowithoutmaps(){
 //   d.fx = null;
 //   d.fy = null;
 // }
+
+// buat maps
