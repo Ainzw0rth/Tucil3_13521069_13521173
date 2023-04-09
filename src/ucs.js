@@ -35,7 +35,7 @@ function ucs(adjMatrix, start, target) {
 
     // start searching
     var found = false;
-    while (!found) {
+    while (!found && !queue.isEmpty()) {
         const currentNode = queue.dequeue();
         visited[currentNode.node] = true;
         if (currentNode.node === target) { // reach target

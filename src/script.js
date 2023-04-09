@@ -203,7 +203,7 @@ document.getElementById('my_file').onchange = async function() {
     links = adjMatrixToList(names, adjMatrix);
     graphVisualize();
   }catch(err){
-    console.log(err); // TODO : tampilin error beneran
+    alert(err);
   }
 };
 
@@ -241,7 +241,7 @@ function shortestPath(){
     console.log("cost : ", cost); // TODO : tampilin cost beneran
     graphVisualize();
   }catch(err){
-    console.log(err); // TODO : tampilin error beneran
+    alert(err);
   }
 }
 
