@@ -37,7 +37,19 @@ svg {
 
 .nodes circle {
     stroke: #fff;
-    stroke-width: 1.5px;
+    stroke-width: 3px;
+}
+
+.node-label {
+    font-size: 12px;
+    font-weight: bold;
+    fill: white;
+}
+
+.link-label {
+    opacity: 0.6;
+    font-size: 12px;
+    fill: white;
 }
 
 /* input file */
