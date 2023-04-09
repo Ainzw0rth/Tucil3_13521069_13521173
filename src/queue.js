@@ -1,32 +1,26 @@
-export class PriorityQueue <T> {
-    private array : T[];
-    private compareFunction : (a : T, b : T) => number
-
-    constructor(compareFunction : (a : T, b : T) => number) {
+class PriorityQueue {
+    array;
+    compareFunction;
+    constructor(compareFunction) {
         this.array = [];
         this.compareFunction = compareFunction;
     }
-
-    enqueue(val : T) {
+    enqueue(val) {
         this.array.push(val);
         this.array.sort(this.compareFunction); // ? masih O(n^2) mungkin bisa di optimize
     }
-
-    dequeue() : T {
-        const val : T = this.front();
+    dequeue() {
+        const val = this.front();
         this.array.shift();
         return val;
     }
-
-    isEmpty() : Boolean{
+    isEmpty() {
         return this.array.length === 0;
     }
-
-    size() : number{
+    size() {
         return this.array.length;
     }
-
-    front() : T{
+    front() {
         return this.array[0];
     }
 }
