@@ -8,6 +8,7 @@ class activeNode {
         this.cost = cost;
     }
 }
+
 /*
     input : weighted adj matrix, start node index, target node index
     input format : 0-indexed
@@ -18,16 +19,19 @@ function ucs(adjMatrix, start, target) {
     // Input Output variable
     const nodeAmount = adjMatrix.length;
     var path = [];
+
     // Search variable
     const visited = Array(nodeAmount).fill(false);
     const comparator = (a, b) => {
         return a.cost - b.cost;
     };
     const queue = new PriorityQueue(comparator);
+
     // start search from start node
     const startNode = new activeNode(start, [start], 0);
     visited[start] = true;
     queue.enqueue(startNode);
+
     // start searching
     var found = false;
     while (!found) {
@@ -36,15 +40,15 @@ function ucs(adjMatrix, start, target) {
         if (currentNode.node === target) { // reach target
             found = true; // found
             path = currentNode.path; // assign path
-        }
-        else { // continue search
+        }else { // continue search
             for (var next = 0; next < nodeAmount; next++) {
-                if (visited[next])
-                    continue; // skip if visited
+                if (visited[next])continue; // skip if visited
+
                 // set new value
                 const nextpath = [...currentNode.path, next];
                 const nextcost = currentNode.cost + adjMatrix[currentNode.node][next];
                 const nextNode = new activeNode(next, nextpath, nextcost);
+                
                 // queueing to search next node
                 queue.enqueue(nextNode);
             }
@@ -52,6 +56,7 @@ function ucs(adjMatrix, start, target) {
     }
     return path;
 }
+
 function mainTest() {
     const adjMatrix = [
         [0, 4, 6, 8],
