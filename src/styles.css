@@ -46,6 +46,10 @@ svg {
     fill: white;
 }
 
+marker {
+    opacity: 0.6;
+}
+
 .link-label {
     opacity: 0.6;
     font-size: 12px;

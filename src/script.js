@@ -6,14 +6,38 @@ var height = svg.attr("height");
 // JIKA ELEMEN INI ISINYA DIUBAH, MAKA OTOMATIS VISUALISASI JUGA AKAN BERUBAH
 // inisialisasi semua elemen-elemen graf
 var nodes = [
+  {name: "1"},
+  {name: "2"},
+  {name: "3"},
+  {name: "4"},
+  {name: "5"},
+  {name: "6"},
+  {name: "7"},
+  {name: "8"},
+  {name: "9"},
+  {name: "10"},
+  {name: "12"},
 ];
 
 // daftar hubungan antar node
 var links = [
+  {source: "1", target: "2", distance: "40"},
+  {source: "1", target: "5", distance: "40"},
+  {source: "1", target: "6", distance: "40"},
+  {source: "2", target: "3", distance: "40"},
+  {source: "2", target: "7", distance: "40"},
+  {source: "3", target: "4", distance: "40"},
+  {source: "8", target: "3", distance: "40"},
+  {source: "4", target: "5", distance: "40"},
+  {source: "4", target: "9", distance: "40"},
+  {source: "5", target: "10", distance: "40"},
+  {source: "10", target: "5", distance: "40"},  
+  {source: "12", target: "10", distance: "140"},
 ];
 
 // daftar hubungan antar node yang merupakan shortest path
 var links2 = [
+  {source: "12", target: "10", distance: "140"},
 ];
 
 // input node awal dan akhir dari form input
@@ -54,6 +78,7 @@ function updateValues() {
 }
 
 function visualize() {
+  var noderadius = [];
   // reset svgnya terlebih dahulu
   svg.selectAll("*").remove();
 
@@ -96,10 +121,8 @@ function visualize() {
     .data(nodes)
     .enter()
     .append("circle")
-    .attr("r", 15)
-    .attr("fill", function(d) {
-      return "red";
-    })
+    .attr("r", 22)
+    .attr("fill", "red")
     .call(
       d3
         .drag()
@@ -108,12 +131,36 @@ function visualize() {
         .on("end", dragended)
     );
     
+  svg.append("defs").append("marker")
+    .attr("id", "arrow-blue")
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 19)
+    .attr("refY", 0)
+    .attr("markerWidth", 8)
+    .attr("markerHeight", 8)
+    .attr("orient", "auto-start-reverse")
+    .append("path")
+    .attr("fill", "blue")
+    .attr("d", "M0,-5L10,0L0,5");
+
+  svg.append("defs").append("marker")
+    .attr("id", "default")
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 19)
+    .attr("refY", 0)
+    .attr("markerWidth", 10)
+    .attr("markerHeight", 7)
+    .attr("orient", "auto-start-reverse")
+    .append("path")
+    .attr("fill", "grey")
+    .attr("d", "M0,-5L10,0L0,5");
+
   var nodelabel = svg.selectAll(".node-label")
-  .data(nodes)
-  .enter()
-  .append("text")
-  .attr("class", "node-label")
-  .text(function(d) { return d.name; });
+    .data(nodes)
+    .enter()
+    .append("text")
+    .attr("class", "node-label")
+    .text(function(d) { return d.name; });
 
   // buat mengatur posisi elemen" di simulasi
   simulation.on("tick", function() {
@@ -121,19 +168,28 @@ function visualize() {
       .attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
       .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
+      .attr("y2", function(d) { return d.target.y; })
+      .attr("marker-end", function(d) {
+        if (isItInList(links2, d)) {
+          return "url(#arrow-blue)";
+        } else {
+          return "url(#default)";
+        }
+      });
 
     node
       .attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
 
     nodelabel
-      .attr("x", function(d) { return d.x + 25; })
+      .attr("x", function(d) { return d.x + 26; })
       .attr("y", function(d) { return d.y + 5; });
 
     linkLabels
       .attr("x", function(d) { return (d.source.x + d.target.x) / 2; })
       .attr("y", function(d) { return (d.source.y + d.target.y) / 2; });
+
+    
   });
 
   function ticked() {
