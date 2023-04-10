@@ -14,6 +14,7 @@ class activeNode {
     input format : 0-indexed
     output : arrays of pair, shortest path from start to target with ucs algorithm
     ex output : path = [1,2,3,4] means the path is 1->2->3->4
+    if there is no path from start to end or start==end path will be []
 */
 function ucs(adjMatrix, start, target) {
     // Input Output variable
@@ -34,7 +35,7 @@ function ucs(adjMatrix, start, target) {
 
     // start searching
     var found = false;
-    while (!found) {
+    while (!found && !queue.isEmpty()) {
         const currentNode = queue.dequeue();
         visited[currentNode.node] = true;
         if (currentNode.node === target) { // reach target
@@ -43,6 +44,7 @@ function ucs(adjMatrix, start, target) {
         }else { // continue search
             for (var next = 0; next < nodeAmount; next++) {
                 if (visited[next])continue; // skip if visited
+                if (adjMatrix[currentNode.node][next] === 0)continue; // skip if no path
 
                 // set new value
                 const nextpath = [...currentNode.path, next];

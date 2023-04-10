@@ -17,12 +17,14 @@ return new Promise((resolve, reject) => {
 
         // get node amount
         const nodeAmount = parseInt(contentLines[0]);
-        if (isNaN(nodeAmount))reject("Invalid Input, node amount is not integer");
+        if (isNaN(nodeAmount))reject("Invalid Format, node amount is not integer");
         if (contentLines.length < (1 + 2 * nodeAmount))reject("Invalid Format, too few line");
         if (contentLines.length > (1 + 2 * nodeAmount))reject("Invalid Format, extra trailing line");
 
         // get node name
         for (var i = 1; i < 1 + nodeAmount; i++) {
+            if(contentLines[i] === '')reject("Invalid Format, node name in line " + i + " is empty");
+            if(nodeName.includes(contentLines[i]))reject("Invalid Format, node name in line " + i + " already used before");
             nodeName.push(contentLines[i]);
         }
 
@@ -38,6 +40,7 @@ return new Promise((resolve, reject) => {
             for (var j = 0; j < nodeAmount; j++) {
                 const num = parseInt(line[j]); // ? mungkin bisa float
                 if (isNaN(num))reject(errorMessage + " column " + (j + 1) + " value is not integer");
+                if (num < 0)reject(errorMessage + " column " + (j + 1) + " value is negative");
                 numLines.push(num);
             }
             adjMatrix.push(numLines);
@@ -49,4 +52,44 @@ return new Promise((resolve, reject) => {
         reject(reader.error);
     };
 });
+}
+
+function nodeNameToNodeList(names){
+    var list = [];
+    const nodeAmount = names.length; // ? pengen pake foreach malah gajelas
+    for (var i = 0; i < nodeAmount ; i++) {
+        list.push({"name" : names[i]});
+    }
+    return list;
+}
+
+function adjMatrixToList(names, adjMatrix){
+    var list = [];
+    const nodeAmount = names.length;
+    for (var i = 0; i < nodeAmount ; i++){
+        for (var j = 0; j < nodeAmount ; j++){
+            if(adjMatrix[i][j] === 0)continue;
+            list.push({source : names[i], target : names[j], distance : adjMatrix[i][j]});
+        }
+    }
+    return list;
+}
+
+function pathToList(names, adjMatrix, path){
+    var list = [];
+    const pathLength = path.length;
+    for(var i = 1; i < pathLength;i++){
+        list.push({source : names[path[i-1]], target : names[path[i]], distance : adjMatrix[path[i-1]][path[i]]});
+    }
+    return list;
+}
+
+function pathCost(path, adjMatrix){
+    var cost = 0;
+    const pathLength = path.length;
+    for (var i = 1; i < pathLength; i++){
+        cost += adjMatrix[path[i-1]][path[i]];
+        curr = path[i];
+    }
+    return cost;
 }
