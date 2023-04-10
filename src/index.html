@@ -8,7 +8,8 @@
     <script src = "util.js" defer></script>
     <script src = "queue.js" defer></script>
     <script src = "ucs.js" defer></script>
-    <script src = "script.js" defer></script>
+    <script src = "visualize.js" defer></script>
+    <script src = "button.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Miriam+Libre:wght@700&family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -34,7 +35,7 @@
         <div class="inputform">
             <input type="text" id="start" placeholder="Start Node" class="inputspace"><br><br>
             <input type="text" id="end" placeholder="Destination Node" class="inputspace"><br><br>
-            <input type="submit" value="Submit" class="submitbutton" onclick="graphVisualize()">
+            <input type="submit" value="Submit" class="submitbutton" onclick="shortestPath()">
         </div>
     </div>
     <svg width="1400" height="800"></svg>
