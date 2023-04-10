@@ -278,27 +278,27 @@ function gotowithoutmaps(){
   return true;
 }
 
-function shortestPath(){
-  try{
-    if (startNode == "")throw "Start node is empty";
-    if (endNode == "")throw "End node is empty";
-    if (!names.includes(startNode))throw "Start node is not exist";
-    if (!names.includes(endNode))throw "End node is not exist";
+// function shortestPath(){
+//   try{
+//     if (startNode == "")throw "Start node is empty";
+//     if (endNode == "")throw "End node is empty";
+//     if (!names.includes(startNode))throw "Start node is not exist";
+//     if (!names.includes(endNode))throw "End node is not exist";
 
-    const startIndex = names.indexOf(startNode);
-    const endIndex = names.indexOf(endNode);
+//     const startIndex = names.indexOf(startNode);
+//     const endIndex = names.indexOf(endNode);
 
-    const path = ucs(adjMatrix, startIndex, endIndex);
-    if (path.length === 0)throw "End node is not reachable from Start node";
-    links2 = pathToList(names, adjMatrix, path);
-    const cost = pathCost(path, adjMatrix);
+//     const path = ucs(adjMatrix, startIndex, endIndex);
+//     if (path.length === 0)throw "End node is not reachable from Start node";
+//     links2 = pathToList(names, adjMatrix, path);
+//     const cost = pathCost(path, adjMatrix);
 
-    console.log("cost : ", cost); // TODO : tampilin cost beneran
-    graphVisualize();
-  }catch(err){
-    alert(err);
-  }
-}
+//     console.log("cost : ", cost); // TODO : tampilin cost beneran
+//     graphVisualize();
+//   }catch(err){
+//     alert(err);
+//   }
+// }
 
 // utility functions
 function isItInList(links, data){

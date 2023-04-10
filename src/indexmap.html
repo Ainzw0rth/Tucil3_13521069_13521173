@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8" />
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="mapstyles.css">
+
 
 <head>
     <h1> Tucil 3 - Dengan Maps</h1>
@@ -9,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Miriam+Libre:wght@700&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 </head>
 
 <body> 
@@ -21,17 +24,13 @@
             </label>
         </div>
     </div>
-    <div id="googleMap"></div>
 
-    <script>
-        function myMap() {
-        var mapProp= {
-        center:new google.maps.LatLng(51.508742,-0.120850),
-        zoom:5,
-        };
-        var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-        }
-    </script>
+    <div class="sidenav2">
+        <input type="submit" value="Visualize" class="submitbutton" onclick="mapVisualize()">
+    </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQdj3GXnfDuxQavDwHl9xD-BJCRMfG1V0&callback=myMap"></script>
+    <div id="map"></div>
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="map.js"></script>
 </body>

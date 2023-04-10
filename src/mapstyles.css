@@ -14,18 +14,6 @@ h1 {
     padding-bottom: 25px;
 }
 
-/* style buat svg */
-svg {
-    background-color: #2b2b33;
-    border-style: solid;
-    border-width: 0px;
-    border-radius: 25px;
-    position: relative;
-    left: 19%;
-    box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
-    background-image: linear-gradient(to bottom right, #292a2c, #23262d);
-}
-
 /* buat nodes */
 .circle {
     fill: black;
@@ -103,7 +91,7 @@ marker {
 
 /* side navbar untuk input file dan node */
 .sidenav2 {
-    height: 340px;
+    height: 60px;
     width: 250px;
     position: fixed;
     z-index: 1;
@@ -258,7 +246,8 @@ input:checked + .slider2:before {
     margin: 10px;
     cursor: pointer;
     position: relative;
-    left: 9%;
+    top: -20%;
+    left: 23%;
     background-image: linear-gradient(to bottom right, #fa07ad, #6230df);
     font-family: 'Miriam Libre', sans-serif;
     font-family: 'Source Sans Pro', sans-serif;
