@@ -16,7 +16,7 @@ class activeNode {
     ex output : path = [1,2,3,4] means the path is 1->2->3->4
     if there is no path from start to end or start==end path will be []
 */
-function ucs(adjMatrix, start, target) {
+function pathFinding(adjMatrix, start, target, isAStar) {
     // Input Output variable
     const nodeAmount = adjMatrix.length;
     var path = [];
@@ -57,4 +57,12 @@ function ucs(adjMatrix, start, target) {
         }
     }
     return path;
+}
+
+function ucs(adjMatrix, start, target) {
+    return pathFinding(adjMatrix, start, target, false);
+}
+
+function astar(adjMatrix, start, target) {
+    return pathFinding(adjMatrix, start, target, true);
 }

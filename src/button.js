@@ -1,6 +1,6 @@
 // graph input variable
 var names;
-var adjMatrix;
+var adjMatrix = null;
 
 // input node awal dan akhir dari form input
 var inputstart = document.getElementById("start");
@@ -24,18 +24,24 @@ inputend.addEventListener("input", () => {
 
 var delay;
 function updateValues() {
-  startNode = inputstart.value;
-  endNode = inputend.value;
+    startNode = inputstart.value;
+    endNode = inputend.value;
 
-  // jika waktu diubah valuenya jadi kosong
-  if (startNode == "" || endNode == "") {
-    // Reset the changed variables
-    startberubah = false;
-    endberubah = false;
-  } else {
-    clearTimeout(delay);
-    delay = setTimeout(() => {shortestPath();}, 1000);
-  }
+    // jika waktu diubah valuenya jadi kosong
+    if (startNode == "" || endNode == "") {
+        // Reset the changed variables
+        startberubah = false;
+        endberubah = false;
+    } 
+    
+    // run otomatis abis diubah
+    if (startNode == "" || endNode == "" || adjMatrix == null){ // kalo masih ada yang kosong skip
+        return;
+    } else {
+        clearTimeout(delay);
+        if(document.getElementById('gotomaps'))delay = setTimeout(() => {shortestPath();}, 1000);
+        else delay = setTimeout(() => {mapVisualize();}, 1000);
+    }
 }
 
 document.getElementById('get_file').onclick = function() {
@@ -84,9 +90,18 @@ function using(value) {
     } else if(value == "A*") {
         algo = "astar"; // TODO : ganti abis bikin A*
     } 
-    if (startNode !== "" && endNode !== "") { // if start and end is not empty, execute right after
-        shortestPath();
-    }
+
+    if(document.getElementById('gotomaps')) { // if index.html
+        if(adjMatrix == null)alert("Input file before run");
+        if(startNode !== "" && endNode !== "") { // if start and end is not empty, execute right after
+            shortestPath();
+        }
+    } else { // if indexmap.html
+        if(markers.length == 0)alert("Choose node before run");
+        if(startNode !== "" && endNode !== "") { // if start and end is not empty, execute right after
+            mapVisualize();
+        }
+    } 
 }
 
 function shortestPath(){
@@ -106,15 +121,14 @@ function shortestPath(){
         links2 = pathToList(names, adjMatrix, path);
         const cost = pathCost(path, adjMatrix);
 
-        console.log("cost : ", cost); // TODO : tampilin cost beneran
         graphVisualize();
-        // updateJarak(10); // buat update nilai pake function ini, parameternya jaraknya
+        updateJarak(cost);
     }catch(err){
         alert(err);
     }
 }
 
-// buat untuk mengupdate output jarak
+// button util
 function updateJarak(jarak) {
     var hasiljarak = document.getElementById('output-jarak');
     hasiljarak.textContent = jarak;

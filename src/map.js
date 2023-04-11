@@ -64,7 +64,6 @@ map.on('click', function(event) {
 });
 
 function mapVisualize() {
-    // rough image buat visualisasi shortest path
     // TODO : Algoritma nanti return id/index dari node biar bisa di visualisasi
     var router = L.Routing.control({
         waypoints: [
