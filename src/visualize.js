@@ -200,7 +200,7 @@ function graphVisualize() {
 
 // utility functions
 function isItInList(links, data){
-  for (var i = 0; i < links.length; i++) {
+  for (let i = 0; i < links.length; i++) {
     if (links[i].source === data.source.name && links[i].target === data.target.name && links[i].distance === data.distance) {
       return true;
     }

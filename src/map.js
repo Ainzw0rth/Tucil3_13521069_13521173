@@ -1,8 +1,8 @@
 // inisialisasi map dan id nodenya
 var map = L.map('map').setView([-6.892, 107.612], 16);
 var ctrmarker = 0; // id node
-var redMarker = [];
-var blueMarker = [];
+var redPath = [];
+var bluePath = [];
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
@@ -37,10 +37,10 @@ map.on('click', function(event) {
         // tambahkan marker ke dalam array
         markers.push(marker);
         
-        var tempAdjacencylist = [];
         // kalau node sudah ada 2 bisa dicari edgenya
-        // looping untuk menghubungkan node terbaru dengan node node yang telah ada     
-        for (var i = 0; i < markers.length; i++) {
+        // misal marker baru X, marker lama m
+        for (let i = 0; i < markers.length - 1; i++) { // cari jarak dari m ke X
+            // bruh kalo var i, malah error
             var router = L.Routing.control({
                 waypoints: [
                     markers[i].getLatLng(),
@@ -48,23 +48,35 @@ map.on('click', function(event) {
                 ]
             });
             router.addTo(map);
-            redMarker.push(router);
+            redPath.push(router);
 
-            var ctr = markers.length;
             router.on('routesfound', function(event) {
                 var route = event.routes[0];
                 var distance = route.summary.totalDistance;
-                tempAdjacencylist.push(distance);
-                if (i-ctr != markers.length-1) {
-                    adjacencyMatrix[i-ctr].push(distance);
-                }
-                ctr-=1;
+                adjacencyMatrix[i].push(distance);
             });
         }
-        adjacencyMatrix.push(tempAdjacencylist);
-    });
 
-    console.log(markers);
+        adjacencyMatrix.push([]);
+        for (let i = 0; i < markers.length; i++) { // cari jarak dari X ke m
+            var router = L.Routing.control({
+                waypoints: [
+                    markers[markers.length - 1].getLatLng(),
+                    markers[i].getLatLng()
+                ]
+            });
+            router.addTo(map);
+            redPath.push(router);
+
+            router.on('routesfound', function(event) {
+                var route = event.routes[0];
+                var distance = route.summary.totalDistance;
+                adjacencyMatrix[markers.length - 1].push(distance);
+            });
+        }
+
+        console.log(adjacencyMatrix);
+    });
 });
 
 function mapVisualize() {
@@ -97,13 +109,13 @@ function mapVisualize() {
 
 // util
 function mapVisualizePath(path) {
-    for(var i = 0 ; i < blueMarker.length ; i++){
-        map.removeControl(blueMarker[i]);
+    for(let i = 0 ; i < bluePath.length ; i++){
+        map.removeControl(bluePath[i]);
     }
-    blueMarker = [];
+    bluePath = [];
 
     const pathLength = path.length;
-    for(var i = 1; i < pathLength ; i ++){
+    for(let i = 1; i < pathLength ; i ++){
         var router = L.Routing.control({
             waypoints: [
                 markers[path[i-1]].getLatLng(),
@@ -114,6 +126,6 @@ function mapVisualizePath(path) {
             }
         })
         router.addTo(map);
-        blueMarker.push(router);
+        bluePath.push(router);
     }
 }

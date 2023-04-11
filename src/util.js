@@ -22,14 +22,14 @@ return new Promise((resolve, reject) => {
         if (contentLines.length > (1 + 2 * nodeAmount))reject("Invalid Format, extra trailing line");
 
         // get node name
-        for (var i = 1; i < 1 + nodeAmount; i++) {
+        for (let i = 1; i < 1 + nodeAmount; i++) {
             if(contentLines[i] === '')reject("Invalid Format, node name in line " + i + " is empty");
             if(nodeName.includes(contentLines[i]))reject("Invalid Format, node name in line " + i + " already used before");
             nodeName.push(contentLines[i]);
         }
 
         // get adjacency matrix
-        for (var i = 1 + nodeAmount; i < 1 + 2 * nodeAmount; i++) {
+        for (let i = 1 + nodeAmount; i < 1 + 2 * nodeAmount; i++) {
             const line = contentLines[i].split(" ");
             const currentLine = i - nodeAmount;
             const errorMessage = "Invalid Format, adjacency matrix line " + currentLine;
@@ -37,7 +37,7 @@ return new Promise((resolve, reject) => {
             if (line.length > nodeAmount)reject(errorMessage + " have extra column");
 
             const numLines = [];
-            for (var j = 0; j < nodeAmount; j++) {
+            for (let j = 0; j < nodeAmount; j++) {
                 const num = parseFloat(line[j]);
                 if (isNaN(num))reject(errorMessage + " column " + (j + 1) + " value is not number");
                 if (num < 0)reject(errorMessage + " column " + (j + 1) + " value is negative");
@@ -57,7 +57,7 @@ return new Promise((resolve, reject) => {
 function nodeNameToNodeList(names){
     var list = [];
     const nodeAmount = names.length; // ? pengen pake foreach malah gajelas
-    for (var i = 0; i < nodeAmount ; i++) {
+    for (let i = 0; i < nodeAmount ; i++) {
         list.push({"name" : names[i]});
     }
     return list;
@@ -66,8 +66,8 @@ function nodeNameToNodeList(names){
 function adjMatrixToList(names, adjMatrix){
     var list = [];
     const nodeAmount = names.length;
-    for (var i = 0; i < nodeAmount ; i++){
-        for (var j = 0; j < nodeAmount ; j++){
+    for (let i = 0; i < nodeAmount ; i++){
+        for (let j = 0; j < nodeAmount ; j++){
             if(adjMatrix[i][j] === 0)continue;
             list.push({source : names[i], target : names[j], distance : adjMatrix[i][j]});
         }
@@ -78,7 +78,7 @@ function adjMatrixToList(names, adjMatrix){
 function pathToList(names, adjMatrix, path){
     var list = [];
     const pathLength = path.length;
-    for(var i = 1; i < pathLength;i++){
+    for(let i = 1; i < pathLength;i++){
         list.push({source : names[path[i-1]], target : names[path[i]], distance : adjMatrix[path[i-1]][path[i]]});
     }
     return list;
@@ -87,7 +87,7 @@ function pathToList(names, adjMatrix, path){
 function pathCost(path, adjMatrix){
     var cost = 0;
     const pathLength = path.length;
-    for (var i = 1; i < pathLength; i++){
+    for (let i = 1; i < pathLength; i++){
         cost += adjMatrix[path[i-1]][path[i]];
         curr = path[i];
     }

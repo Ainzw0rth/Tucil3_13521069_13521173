@@ -42,7 +42,7 @@ function pathFinding(adjMatrix, start, target, isAStar) {
             found = true; // found
             path = currentNode.path; // assign path
         }else { // continue search
-            for (var next = 0; next < nodeAmount; next++) {
+            for (let next = 0; next < nodeAmount; next++) {
                 if (visited[next])continue; // skip if visited
                 if (adjMatrix[currentNode.node][next] === 0)continue; // skip if no path
 
