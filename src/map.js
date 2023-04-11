@@ -1,11 +1,12 @@
+// inisialisasi map dan id nodenya
 var map = L.map('map').setView([-6.892, 107.612], 16);
+var ctrmarker = 0; // id node
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var nodes = [];
-var adjacencyMatrix = [];
+var adjacencyMatrix = []; 
 var markers = []; // daftar marker
 
 // onclick add marker
@@ -16,9 +17,20 @@ map.on('click', function(event) {
     }).then(function(json) {
         // buat mengubah marker yang ada di gedung dll jadi di jalan terdekat
         var nearestPoint = L.latLng(json.waypoints[0].location[1], json.waypoints[0].location[0]);
+        ctrmarker+=1;
 
-        // masukkan marker
-        var marker = L.marker(nearestPoint).addTo(map);
+        // label marker
+        var myIcon = L.divIcon({
+            className: 'my-icon',
+            html: '<div>' + ctrmarker + '</div>',
+            iconSize: [40, 40],
+        });
+        // masukkan marker beserta dengan atribut-atributnya
+        var marker = L.marker(nearestPoint, {
+            title: ctrmarker,
+            icon: myIcon,
+            zIndexOffset: 100, // agar marker bisa diclick dan dilihat
+        }).addTo(map).bindPopup(ctrmarker);
         
         // tambahkan marker ke dalam array
         markers.push(marker);

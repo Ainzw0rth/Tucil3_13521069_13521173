@@ -106,7 +106,14 @@ function shortestPath(){
 
         console.log("cost : ", cost); // TODO : tampilin cost beneran
         graphVisualize();
+        // updateJarak(10); // buat update nilai pake function ini, parameternya jaraknya
     }catch(err){
         alert(err);
     }
+}
+
+// buat untuk mengupdate output jarak
+function updateJarak(jarak) {
+    var hasiljarak = document.getElementById('output-jarak');
+    hasiljarak.textContent = jarak;
 }
