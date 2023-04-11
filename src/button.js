@@ -1,3 +1,11 @@
+var algo;
+
+function using(value) {
+    if (algo != value) {
+        algo = value;
+    }
+}
+
 // graph input variable
 var names;
 var adjMatrix;
