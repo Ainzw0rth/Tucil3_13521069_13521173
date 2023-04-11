@@ -6,43 +6,29 @@ var height = svg.attr("height");
 // JIKA ELEMEN INI ISINYA DIUBAH, MAKA OTOMATIS VISUALISASI JUGA AKAN BERUBAH
 // inisialisasi semua elemen-elemen graf
 var nodes = [
-  {name: "1"},
-  {name: "2"},
-  {name: "3"},
-  {name: "4"},
-  {name: "5"},
-  {name: "6"},
-  {name: "7"},
-  {name: "8"},
-  {name: "9"},
-  {name: "10"},
-  {name: "12"},
 ];
 
 // daftar hubungan antar node
 var links = [
-  {source: "1", target: "2", distance: "40"},
-  {source: "1", target: "5", distance: "40"},
-  {source: "1", target: "6", distance: "40"},
-  {source: "2", target: "3", distance: "40"},
-  {source: "2", target: "7", distance: "40"},
-  {source: "3", target: "4", distance: "40"},
-  {source: "8", target: "3", distance: "40"},
-  {source: "4", target: "5", distance: "40"},
-  {source: "4", target: "9", distance: "40"},
-  {source: "5", target: "10", distance: "40"},
-  {source: "10", target: "5", distance: "40"},  
-  {source: "12", target: "10", distance: "140"},
 ];
 
 // daftar hubungan antar node yang merupakan shortest path
 var links2 = [
-  {source: "12", target: "10", distance: "140"},
 ];
 
 // graph input variable
 var names;
 var adjMatrix;
+
+// algo yang digunakan
+var algo;
+
+function using(value) {
+  if (algo != value) {
+    algo = value;
+    console.log(algo);
+  }
+}
 
 // input node awal dan akhir dari form input
 var inputstart = document.getElementById("start");
@@ -73,6 +59,8 @@ function updateValues() {
     // Reset the changed variables
     startberubah = false;
     endberubah = false;
+  } else {
+    shortestPath();
   }
   
   // debug purposes
@@ -89,7 +77,7 @@ function graphVisualize() {
 
   // simulasikan
   var simulation = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink().links(links).id(function(d) { return d.name; }).distance(function(d) { return d.distance * 4; }))
+    .force("link", d3.forceLink().links(links).id(function(d) { return d.name; }).distance(200))
     .force("charge", d3.forceManyBody().strength(-30))
     .force("center", d3.forceCenter(width / 2, height / 2))
     .on("tick", ticked);
@@ -270,35 +258,27 @@ function gotomaps(){
   return true;
 }
 
-function gotowithoutmaps(){
-  if(document.getElementById('gotowithoutmaps').checked){
-    window.location='index.html';
-    return false;
+function shortestPath(){
+  try{
+    if (startNode == "")throw "Start node is empty";
+    if (endNode == "")throw "End node is empty";
+    if (!names.includes(startNode))throw "Start node is not exist";
+    if (!names.includes(endNode))throw "End node is not exist";
+
+    const startIndex = names.indexOf(startNode);
+    const endIndex = names.indexOf(endNode);
+
+    const path = ucs(adjMatrix, startIndex, endIndex);
+    if (path.length === 0)throw "End node is not reachable from Start node";
+    links2 = pathToList(names, adjMatrix, path);
+    const cost = pathCost(path, adjMatrix);
+
+    console.log("cost : ", cost); // TODO : tampilin cost beneran
+    graphVisualize();
+  }catch(err){
+    alert(err);
   }
-  return true;
 }
-
-// function shortestPath(){
-//   try{
-//     if (startNode == "")throw "Start node is empty";
-//     if (endNode == "")throw "End node is empty";
-//     if (!names.includes(startNode))throw "Start node is not exist";
-//     if (!names.includes(endNode))throw "End node is not exist";
-
-//     const startIndex = names.indexOf(startNode);
-//     const endIndex = names.indexOf(endNode);
-
-//     const path = ucs(adjMatrix, startIndex, endIndex);
-//     if (path.length === 0)throw "End node is not reachable from Start node";
-//     links2 = pathToList(names, adjMatrix, path);
-//     const cost = pathCost(path, adjMatrix);
-
-//     console.log("cost : ", cost); // TODO : tampilin cost beneran
-//     graphVisualize();
-//   }catch(err){
-//     alert(err);
-//   }
-// }
 
 // utility functions
 function isItInList(links, data){

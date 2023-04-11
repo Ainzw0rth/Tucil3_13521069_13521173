@@ -25,16 +25,28 @@
         </div>
     </div>
     
+    
     <div class="sidenav2">
         <div class="getfilebutton">
             <input type="button" id="get_file" value="Masukkan file">
             <input type="file" id="my_file">
         </div>
-
+        
+        
         <div class="inputform">
             <input type="text" id="start" placeholder="Start Node" class="inputspace"><br><br>
             <input type="text" id="end" placeholder="Destination Node" class="inputspace"><br><br>
-            <input type="submit" value="Submit" class="submitbutton" onclick="graphVisualize()">
+        </div>
+
+        <div class="algoritma" id="algoritma">
+            <div class="radiobutton">
+                <input type="radio" id="UCS" name="algo_choice" value="UCS" onclick="using('UCS')">
+                <label for="UCS">UCS</label><br>
+            </div>
+            <div class="radiobutton">
+                <input type="radio" id="A*" name="algo_choice" value="A*" onclick="using('A*')">
+                <label for="A*">A*</label><br>
+            </div>
         </div>
     </div>
     <svg width="1400" height="800"></svg>

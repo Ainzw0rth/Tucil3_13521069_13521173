@@ -91,7 +91,7 @@ marker {
 
 /* side navbar untuk input file dan node */
 .sidenav2 {
-    height: 60px;
+    height: 210px;
     width: 250px;
     position: fixed;
     z-index: 1;
@@ -280,4 +280,48 @@ input:checked + .slider2:before {
     left: 19%; 
     border-style: solid; 
     border-radius: 25px;
+}
+
+/* buat algoritma */
+.radiobutton {
+    float: left;
+    margin: 5px;
+    width: 100px;
+    height: 40px;
+    position: relative;
+    left: 6%;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+}
+  
+.radiobutton label,
+.radiobutton input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+  
+.radiobutton input[type="radio"] {
+    opacity: 0;
+    z-index: 100;
+}
+  
+.radiobutton input[type="radio"]:checked + label {
+    background-image: linear-gradient(to right, #f904b4, #7335e7);
+    border-radius: 4px;
+}
+
+.radiobutton label {
+    cursor: pointer;
+    z-index: 90;
+    line-height: 1.8em;
+}
+
+.algoritma {
+    margin-top: 40px;
 }

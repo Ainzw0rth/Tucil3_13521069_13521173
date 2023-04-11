@@ -2,7 +2,6 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" href="mapstyles.css">
 
-
 <head>
     <h1> Tucil 3 - Dengan Maps</h1>
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -14,7 +13,7 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 </head>
 
-<body> 
+<body>
     <div class="sidenav">
         <div class="inlinetoggle">
             <div class="text">Pakai maps?</div>
@@ -26,7 +25,21 @@
     </div>
 
     <div class="sidenav2">
-        <input type="submit" value="Visualize" class="submitbutton" onclick="mapVisualize()">
+        <div class="inputform">
+            <input type="text" id="start" placeholder="Start Node" class="inputspace"><br><br>
+            <input type="text" id="end" placeholder="Destination Node" class="inputspace"><br><br>
+        </div>
+        
+        <div class="algoritma" id="algoritma">
+            <div class="radiobutton">
+                <input type="radio" id="UCS" name="algo_choice" value="UCS" onclick="using('UCS')">
+                <label for="UCS">UCS</label><br>
+            </div>
+            <div class="radiobutton">
+                <input type="radio" id="A*" name="algo_choice" value="A*" onclick="using('A*')">
+                <label for="A*">A*</label><br>
+            </div>
+        </div>
     </div>
 
     <div id="map"></div>

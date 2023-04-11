@@ -64,3 +64,12 @@ function mapVisualize() {
         }
     }).addTo(map);
 }
+
+// utility
+function gotowithoutmaps(){
+    if(document.getElementById('gotowithoutmaps').checked){
+      window.location='index.html';
+      return false;
+    }
+    return true;
+  }
