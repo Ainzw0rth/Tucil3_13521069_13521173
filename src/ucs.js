@@ -58,17 +58,3 @@ function ucs(adjMatrix, start, target) {
     }
     return path;
 }
-
-function mainTest() {
-    const adjMatrix = [
-        [0, 4, 6, 8],
-        [4, 0, 1, 2],
-        [6, 1, 0, 3],
-        [8, 2, 3, 0],
-    ];
-    const ans = ucs(adjMatrix, 0, 2);
-    console.log(ans);
-    const ans2 = ucs(adjMatrix, 0, 3);
-    console.log(ans2);
-}
-// mainTest()
