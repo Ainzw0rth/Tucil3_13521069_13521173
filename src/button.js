@@ -1,3 +1,4 @@
+// inisialisasi algo yang digunakan
 var algo;
 
 function using(value) {
@@ -39,6 +40,8 @@ function updateValues() {
     // Reset the changed variables
     startberubah = false;
     endberubah = false;
+  } else {
+    shortestPath();
   }
   
   // debug purposes
