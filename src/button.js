@@ -1,12 +1,3 @@
-// inisialisasi algo yang digunakan
-var algo;
-
-function using(value) {
-    if (algo != value) {
-        algo = value;
-    }
-}
-
 // graph input variable
 var names;
 var adjMatrix;
@@ -31,6 +22,7 @@ inputend.addEventListener("input", () => {
   updateValues();
 });
 
+var delay;
 function updateValues() {
   startNode = inputstart.value;
   endNode = inputend.value;
@@ -41,15 +33,9 @@ function updateValues() {
     startberubah = false;
     endberubah = false;
   } else {
-    shortestPath();
+    clearTimeout(delay);
+    delay = setTimeout(() => {shortestPath();}, 1000);
   }
-  
-  // debug purposes
-  // if ((startNode && endNode) || (startberubah && endNode) || (endberubah && startNode)) {
-  //   // Do something with the input values
-  //   console.log(`Start node: ${startNode}`);
-  //   console.log(`End node: ${endNode}`);
-  // }
 }
 
 document.getElementById('get_file').onclick = function() {
@@ -89,8 +75,24 @@ function gotowithoutmaps(){
     return true;
 }
 
+// inisialisasi algo yang digunakan
+var algo = "";
+
+function using(value) {
+    if (value == "UCS") {
+        algo = ucs;
+    } else if(value == "A*") {
+        algo = "astar"; // TODO : ganti abis bikin A*
+    } 
+    if (startNode !== "" && endNode !== "") { // if start and end is not empty, execute right after
+        shortestPath();
+    }
+}
+
 function shortestPath(){
     try{
+        if (algo == "")throw "Select algorithm";
+        if (algo == "astar")throw "A* belom dibikin bang"; // TODO : apus abis bikin A*
         if (startNode == "")throw "Start node is empty";
         if (endNode == "")throw "End node is empty";
         if (!names.includes(startNode))throw "Start node is not exist";
@@ -99,7 +101,7 @@ function shortestPath(){
         const startIndex = names.indexOf(startNode);
         const endIndex = names.indexOf(endNode);
 
-        const path = ucs(adjMatrix, startIndex, endIndex);
+        const path = algo(adjMatrix, startIndex, endIndex);
         if (path.length === 0)throw "End node is not reachable from Start node";
         links2 = pathToList(names, adjMatrix, path);
         const cost = pathCost(path, adjMatrix);
