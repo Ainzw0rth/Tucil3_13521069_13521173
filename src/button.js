@@ -35,7 +35,9 @@ function updateValues() {
     } 
     
     // run otomatis abis diubah
-    if (startNode == "" || endNode == "" || adjMatrix == null){ // kalo masih ada yang kosong skip
+    if (startNode == "" || endNode == "" || 
+        (document.getElementById('gotomaps') && adjMatrix == null)
+        || (document.getElementById('gotowithoutmaps') && markers.length == 0)){ // kalo masih ada yang kosong skip
         return;
     } else {
         clearTimeout(delay);
@@ -93,12 +95,12 @@ function using(value) {
 
     if(document.getElementById('gotomaps')) { // if index.html
         if(adjMatrix == null)alert("Input file before run");
-        if(startNode !== "" && endNode !== "") { // if start and end is not empty, execute right after
+        else if(startNode !== "" && endNode !== "") { // if start and end is not empty, execute right after
             shortestPath();
         }
     } else { // if indexmap.html
-        if(markers.length == 0)alert("Choose node before run");
-        if(startNode !== "" && endNode !== "") { // if start and end is not empty, execute right after
+        if(markers.length == 0){alert("Choose node before run");}
+        else if(startNode !== "" && endNode !== "") { // if start and end is not empty, execute right after
             mapVisualize();
         }
     } 

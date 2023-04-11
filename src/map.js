@@ -65,13 +65,34 @@ map.on('click', function(event) {
 
 function mapVisualize() {
     // TODO : Algoritma nanti return id/index dari node biar bisa di visualisasi
-    var router = L.Routing.control({
-        waypoints: [
-            markers[markers.length - 2].getLatLng(),
-            markers[markers.length - 1].getLatLng()
-        ],
-        lineOptions: {
-          styles: [{color: 'blue', opacity: 0.7, weight: 5}]
-        }
-    }).addTo(map);
+    try{
+        if (algo == "")throw "Select algorithm";
+        if (algo == "astar")throw "A* belom dibikin bang"; // TODO : apus abis bikin A*
+        if (startNode == "")throw "Start node is empty";
+        if (endNode == "")throw "End node is empty";
+
+        const startIndex = parseInt(startNode);
+        if(isNaN(startIndex))throw "Start node is not an integer";
+        const endIndex = parseInt(endNode);
+        if(isNaN(endIndex))throw "End node is not an integer";
+
+        if (startIndex <= 0 || startIndex > ctrmarker)throw "Start node is not exist";
+        if (endIndex <= 0 || endIndex > ctrmarker)throw "End node is not exist";
+
+        // TODO : pathfind
+
+        var router = L.Routing.control({ // TODO : remove this if finished
+            waypoints: [
+                markers[startIndex - 1].getLatLng(),
+                markers[endIndex - 1].getLatLng()
+            ],
+            lineOptions: {
+            styles: [{color: 'blue', opacity: 0.7, weight: 5}]
+            }
+        }).addTo(map);
+
+        // TODO : visualize
+    }catch(err){
+        alert(err);
+    }
 }
