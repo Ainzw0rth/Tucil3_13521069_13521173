@@ -38,8 +38,8 @@ return new Promise((resolve, reject) => {
 
             const numLines = [];
             for (var j = 0; j < nodeAmount; j++) {
-                const num = parseInt(line[j]); // ? mungkin bisa float
-                if (isNaN(num))reject(errorMessage + " column " + (j + 1) + " value is not integer");
+                const num = parseFloat(line[j]);
+                if (isNaN(num))reject(errorMessage + " column " + (j + 1) + " value is not number");
                 if (num < 0)reject(errorMessage + " column " + (j + 1) + " value is negative");
                 numLines.push(num);
             }

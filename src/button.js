@@ -2,6 +2,9 @@
 var names;
 var adjMatrix = null;
 
+// inisialisasi algo yang digunakan
+var algo = "";
+
 // input node awal dan akhir dari form input
 var inputstart = document.getElementById("start");
 var inputend = document.getElementById("end");
@@ -35,9 +38,9 @@ function updateValues() {
     } 
     
     // run otomatis abis diubah
-    if (startNode == "" || endNode == "" || 
-        (document.getElementById('gotomaps') && adjMatrix == null)
-        || (document.getElementById('gotowithoutmaps') && markers.length == 0)){ // kalo masih ada yang kosong skip
+    if (startNode == "" || endNode == "" || algo == "" ||
+        (document.getElementById('gotomaps') && adjMatrix == null) || 
+        (document.getElementById('gotowithoutmaps') && markers.length == 0)){ // kalo masih ada yang kosong skip
         return;
     } else {
         clearTimeout(delay);
@@ -83,9 +86,6 @@ function gotowithoutmaps(){
     return true;
 }
 
-// inisialisasi algo yang digunakan
-var algo = "";
-
 function using(value) {
     if (value == "UCS") {
         algo = ucs;
@@ -118,7 +118,7 @@ function shortestPath(){
         const startIndex = names.indexOf(startNode);
         const endIndex = names.indexOf(endNode);
 
-        const path = algo(adjMatrix, startIndex, endIndex);
+        const path = algo(adjMatrix, startIndex, endIndex, false);
         if (path.length === 0)throw "End node is not reachable from Start node";
         links2 = pathToList(names, adjMatrix, path);
         const cost = pathCost(path, adjMatrix);

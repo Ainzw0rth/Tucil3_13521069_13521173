@@ -1,6 +1,8 @@
 // inisialisasi map dan id nodenya
 var map = L.map('map').setView([-6.892, 107.612], 16);
 var ctrmarker = 0; // id node
+var redMarker = [];
+var blueMarker = [];
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
@@ -44,7 +46,9 @@ map.on('click', function(event) {
                     markers[i].getLatLng(),
                     markers[markers.length - 1].getLatLng()
                 ]
-            }).addTo(map);
+            });
+            router.addTo(map);
+            redMarker.push(router);
 
             var ctr = markers.length;
             router.on('routesfound', function(event) {
@@ -64,35 +68,52 @@ map.on('click', function(event) {
 });
 
 function mapVisualize() {
-    // TODO : Algoritma nanti return id/index dari node biar bisa di visualisasi
     try{
         if (algo == "")throw "Select algorithm";
         if (algo == "astar")throw "A* belom dibikin bang"; // TODO : apus abis bikin A*
         if (startNode == "")throw "Start node is empty";
         if (endNode == "")throw "End node is empty";
 
-        const startIndex = parseInt(startNode);
+        const startIndex = parseInt(startNode) - 1;
         if(isNaN(startIndex))throw "Start node is not an integer";
-        const endIndex = parseInt(endNode);
+        const endIndex = parseInt(endNode) - 1;
         if(isNaN(endIndex))throw "End node is not an integer";
 
-        if (startIndex <= 0 || startIndex > ctrmarker)throw "Start node is not exist";
-        if (endIndex <= 0 || endIndex > ctrmarker)throw "End node is not exist";
+        if (startIndex < 0 || startIndex >= ctrmarker)throw "Start node is not exist";
+        if (endIndex < 0 || endIndex >= ctrmarker)throw "End node is not exist";
 
-        // TODO : pathfind
 
-        var router = L.Routing.control({ // TODO : remove this if finished
+        console.log(adjacencyMatrix);
+        const path = algo(adjacencyMatrix, startIndex, endIndex, false);
+        if (path.length === 0)throw "End node is not reachable from Start node";
+        const cost = pathCost(path, adjacencyMatrix);
+
+        mapVisualizePath(path);
+        updateJarak(cost);
+    }catch(err){
+        alert(err);
+    }
+}
+
+// util
+function mapVisualizePath(path) {
+    for(var i = 0 ; i < blueMarker.length ; i++){
+        map.removeControl(blueMarker[i]);
+    }
+    blueMarker = [];
+
+    const pathLength = path.length;
+    for(var i = 1; i < pathLength ; i ++){
+        var router = L.Routing.control({
             waypoints: [
-                markers[startIndex - 1].getLatLng(),
-                markers[endIndex - 1].getLatLng()
+                markers[path[i-1]].getLatLng(),
+                markers[path[i]].getLatLng()
             ],
             lineOptions: {
             styles: [{color: 'blue', opacity: 0.7, weight: 5}]
             }
-        }).addTo(map);
-
-        // TODO : visualize
-    }catch(err){
-        alert(err);
+        })
+        router.addTo(map);
+        blueMarker.push(router);
     }
 }
