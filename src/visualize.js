@@ -2,6 +2,9 @@
 var svg = d3.select("svg");
 var width = svg.attr("width");
 var height = svg.attr("height");
+var scale = d3.scaleLog()
+              .domain([1, 100])
+              .range([2, 10]);
 
 // JIKA ELEMEN INI ISINYA DIUBAH, MAKA OTOMATIS VISUALISASI JUGA AKAN BERUBAH
 // inisialisasi semua elemen-elemen graf
@@ -47,7 +50,9 @@ function graphVisualize() {
 
   // simulasikan
   var simulation = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink().links(links).id(function(d) { return d.name; }).distance(200))
+    .force("link", d3.forceLink().links(links).id(function(d) { return d.name; })
+          .distance(function(d) {
+            return scale(d.distance) * 100;}))
     .force("charge", d3.forceManyBody().strength(-30))
     .force("center", d3.forceCenter(width / 2, height / 2))
     .on("tick", ticked);
@@ -214,4 +219,20 @@ function isItInList(links, data){
     }
   }
   return false;
+}
+
+function setScale(adjMatrix) {
+  var minVal = Number.MAX_VALUE;
+  var maxVal = 0;
+  const nodeAmount = adjMatrix.length;
+  for(let i = 0 ; i < nodeAmount ; i++) {
+    for(let j = 0 ; j < nodeAmount ; j++) {
+      if(adjMatrix[i][j] == 0)continue;
+      minVal = Math.min(minVal, adjMatrix[i][j]);
+      maxVal = Math.max(maxVal, adjMatrix[i][j]);
+    } 
+  }
+  scale = d3.scaleLog()
+                .domain([minVal, maxVal])
+                .range([1, 5]);
 }

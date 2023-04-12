@@ -64,6 +64,7 @@ document.getElementById('my_file').onchange = async function() {
         adjMatrix = input[1];
         nodes = nodeNameToNodeList(names);
         links = adjMatrixToList(names, adjMatrix);
+        setScale(adjMatrix);
         graphVisualize();
     }catch(err){
         alert(err);
@@ -88,9 +89,9 @@ function gotowithoutmaps(){
 
 function using(value) {
     if (value == "UCS") {
-        algo = ucs;
+        algo = "ucs";
     } else if(value == "A*") {
-        algo = "astar"; // TODO : ganti abis bikin A*
+        algo = "astar";
     } 
 
     if(document.getElementById('gotomaps')) { // if index.html
@@ -109,7 +110,6 @@ function using(value) {
 function shortestPath(){
     try{
         if (algo == "")throw "Select algorithm";
-        if (algo == "astar")throw "A* belom dibikin bang"; // TODO : apus abis bikin A*
         if (startNode == "")throw "Start node is empty";
         if (endNode == "")throw "End node is empty";
         if (!names.includes(startNode))throw "Start node is not exist";
@@ -118,7 +118,9 @@ function shortestPath(){
         const startIndex = names.indexOf(startNode);
         const endIndex = names.indexOf(endNode);
 
-        const path = algo(adjMatrix, startIndex, endIndex, false);
+        var euclidArray = new Array(names.length).fill(0);
+        if(algo == "astar")euclidArray = makeEuclidArrayFile(endIndex);
+        const path = pathFinding(adjMatrix, startIndex, endIndex, euclidArray);
         if (path.length === 0)throw "End node is not reachable from Start node";
         links2 = pathToList(names, adjMatrix, path);
         const cost = pathCost(path, adjMatrix);
@@ -134,4 +136,26 @@ function shortestPath(){
 function updateJarak(jarak) {
     var hasiljarak = document.getElementById('output-jarak');
     hasiljarak.textContent = jarak;
+}
+
+function getEuclidDistance(index1, index2) {
+    const x1 = nodes[index1].x;
+    const x2 = nodes[index2].x;
+    const y1 = nodes[index1].y;
+    const y2 = nodes[index2].y;
+    const dx = Math.abs(x1 - x2);
+    const dy = Math.abs(y1 - y2);
+    const dist = Math.sqrt(dx*dx + dy*dy) / 100;
+    return dist;
+}
+
+function makeEuclidArrayFile(endIndex) {
+    var euclidArray = new Array(names.length).fill(0);
+    for(let i = 0 ; i < names.length ; i++) {
+        const euclidDistance = getEuclidDistance(i, endIndex);
+        if(euclidDistance == 0)euclidArray[i] = 0; // bikin kasus khusus biar gak keluar domain scale
+        else euclidArray[i] = scale.invert(euclidDistance);
+    }
+    console.log(euclidArray);
+    return euclidArray;
 }

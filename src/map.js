@@ -74,7 +74,6 @@ map.on('click', function(event) {
                 adjacencyMatrix[markers.length - 1].push(distance);
             });
         }
-
         console.log(adjacencyMatrix);
     });
 });
@@ -82,7 +81,7 @@ map.on('click', function(event) {
 function mapVisualize() {
     try{
         if (algo == "")throw "Select algorithm";
-        if (algo == "astar")throw "A* belom dibikin bang"; // TODO : apus abis bikin A*
+        // if (algo == "astar")throw "A* belom dibikin bang"; // TODO : apus abis bikin A*
         if (startNode == "")throw "Start node is empty";
         if (endNode == "")throw "End node is empty";
 
@@ -94,9 +93,9 @@ function mapVisualize() {
         if (startIndex < 0 || startIndex >= ctrmarker)throw "Start node is not exist";
         if (endIndex < 0 || endIndex >= ctrmarker)throw "End node is not exist";
 
-
-        console.log(adjacencyMatrix);
-        const path = algo(adjacencyMatrix, startIndex, endIndex, false);
+        var euclidArray = new Array(markers.length).fill(0);
+        if(algo == "astar")euclidArray = makeEuclidArrayMap(endIndex);
+        const path = pathFinding(adjacencyMatrix, startIndex, endIndex, euclidArray);
         if (path.length === 0)throw "End node is not reachable from Start node";
         const cost = pathCost(path, adjacencyMatrix);
 
@@ -128,4 +127,14 @@ function mapVisualizePath(path) {
         router.addTo(map);
         bluePath.push(router);
     }
+}
+
+function makeEuclidArrayMap(endIndex) { // get all euclid distance from marker to end node
+    var euclidArray = new Array(markers.length).fill(0);
+    for(let i = 0 ; i < markers.length ; i++) {
+        euclidArray[i] = markers[i].getLatLng()
+                                    .distanceTo(markers[endIndex].getLatLng());
+    }
+    console.log(euclidArray);
+    return euclidArray;
 }

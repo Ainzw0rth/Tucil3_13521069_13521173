@@ -2,21 +2,26 @@ class activeNode {
     node;
     path;
     cost;
-    constructor(node, path, cost) {
+    priority;
+    constructor(node, path, cost, priority) {
         this.node = node;
         this.path = path;
         this.cost = cost;
+        this.priority = priority;
     }
 }
 
 /*
     input : weighted adj matrix, start node index, target node index
+    if aStarArray is all zero, then the algorithm is UCS, 
+    else (aStarArray is not zero) algorithm is A*
     input format : 0-indexed
     output : arrays of pair, shortest path from start to target with ucs algorithm
     ex output : path = [1,2,3,4] means the path is 1->2->3->4
     if there is no path from start to end or start==end path will be []
 */
-function pathFinding(adjMatrix, start, target, isAStar) {
+function pathFinding(adjMatrix, start, target, aStarArray) {
+    var isAstar = (aStarArray.length !== 0)
     // Input Output variable
     const nodeAmount = adjMatrix.length;
     var path = [];
@@ -24,12 +29,12 @@ function pathFinding(adjMatrix, start, target, isAStar) {
     // Search variable
     const visited = Array(nodeAmount).fill(false);
     const comparator = (a, b) => {
-        return a.cost - b.cost;
+        return a.priority - b.priority;
     };
     const queue = new PriorityQueue(comparator);
 
     // start search from start node
-    const startNode = new activeNode(start, [start], 0);
+    const startNode = new activeNode(start, [start], 0, 0);
     visited[start] = true;
     queue.enqueue(startNode);
 
@@ -49,7 +54,9 @@ function pathFinding(adjMatrix, start, target, isAStar) {
                 // set new value
                 const nextpath = [...currentNode.path, next];
                 const nextcost = currentNode.cost + adjMatrix[currentNode.node][next];
-                const nextNode = new activeNode(next, nextpath, nextcost);
+                const nextpriority = nextcost + aStarArray[next];
+                const nextNode = new activeNode(next, nextpath, nextcost, nextpriority);
+                // console.log(nextpriority);
                 
                 // queueing to search next node
                 queue.enqueue(nextNode);
@@ -57,12 +64,4 @@ function pathFinding(adjMatrix, start, target, isAStar) {
         }
     }
     return path;
-}
-
-function ucs(adjMatrix, start, target) {
-    return pathFinding(adjMatrix, start, target, false);
-}
-
-function astar(adjMatrix, start, target) {
-    return pathFinding(adjMatrix, start, target, true);
 }
