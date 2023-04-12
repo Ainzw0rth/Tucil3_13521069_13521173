@@ -45,7 +45,11 @@ matrix adjacency dari simpul-simpul tersebut
 4. Pilih algoritma yang ingin digunakan
 5. Program akan otomatis menampilkan solusinya
 
-Note: bobot dari edge akan ditampilkan dekat dengan arrow-head, solusi akan di-highlight dengan warna biru, serta total cost akan ditampilkan di pojok kiri bawah
+Note: 
+- bobot dari edge akan ditampilkan dekat dengan arrow-head
+- nama dari node akan ditampilkan disebelah node
+- solusi akan di-highlight dengan warna biru
+- serta total cost akan ditampilkan di pojok kiri bawah
 ### indexmap.html
 1. Jalankan `indexmap.html` dengan cara apapun
 2. Klik peta untuk memasukkan marker
@@ -55,7 +59,11 @@ Note: bobot dari edge akan ditampilkan dekat dengan arrow-head, solusi akan di-h
 6. Pilih algoritma yang ingin digunakan
 7. Program akan otomatis menampilkan solusinya
 
-Note: solusi akan di-highlight dengan warna biru, serta total cost akan ditampilkan di pojok kiri bawah
+Note: 
+- nama dari node akan ditampilkan disebelah node
+- solusi akan di-highlight dengan warna biru
+- serta total cost akan ditampilkan di pojok kiri bawah
+
 ## Authors
 | Nama                           | NIM      |
 | ------------------------------ | -------- |
