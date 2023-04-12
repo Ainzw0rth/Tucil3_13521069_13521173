@@ -1,0 +1,17 @@
+8
+Rumah Dewana
+Kutabumi
+Sekolah Tarsisius Vireta
+Villa Regency 2
+Jalan Raya Pasar Kemis
+Roti Bakar 88
+KFC
+Perumahan Taman Buah
+0 1806 0 1617 1113 0 0 961
+0 0 2662 0 0 0 0 0
+3652 0 0 872 0 0 0 0
+0 0 872 0 952 0 0 0
+0 0 0 952 0 0 603 0
+625 0 0 0 0 0 1375 983
+0 0 0 0 0 1867 0 0
+0 0 0 0 0 1521 0 0
