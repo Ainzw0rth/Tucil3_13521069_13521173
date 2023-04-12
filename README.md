@@ -44,6 +44,7 @@ matrix adjacency dari simpul-simpul tersebut
 3. Pilih Start Node dan Destination Node
 4. Pilih algoritma yang ingin digunakan
 5. Program akan otomatis menampilkan solusinya
+
 Note: bobot dari edge akan ditampilkan dekat dengan arrow-head, solusi akan di-highlight dengan warna biru, serta total cost akan ditampilkan di pojok kiri bawah
 ### indexmap.html
 1. Jalankan `indexmap.html` dengan cara apapun
@@ -53,6 +54,7 @@ Note: bobot dari edge akan ditampilkan dekat dengan arrow-head, solusi akan di-h
 5. Pilih Start Node dan Destination Node
 6. Pilih algoritma yang ingin digunakan
 7. Program akan otomatis menampilkan solusinya
+
 Note: solusi akan di-highlight dengan warna biru, serta total cost akan ditampilkan di pojok kiri bawah
 ## Authors
 | Nama                           | NIM      |
