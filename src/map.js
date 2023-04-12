@@ -1,7 +1,6 @@
 // inisialisasi map dan id nodenya
 var map = L.map('map').setView([-6.892, 107.612], 16);
 var ctrmarker = 0; // id node
-var redPath = [];
 var bluePath = [];
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -53,7 +52,6 @@ map.on('click', function(event) {
 function mapVisualize() {
     try{
         if (algo == "")throw "Select algorithm";
-        // if (algo == "astar")throw "A* belom dibikin bang"; // TODO : apus abis bikin A*
         if (startNode == "")throw "Start node is empty";
         if (endNode == "")throw "End node is empty";
 
@@ -96,7 +94,11 @@ function mapVisualizePath(path) {
             lineOptions: {
             styles: [{color: 'blue', opacity: 0.7, weight: 5}]
             },
-            createMarker: function() { return null; }
+            fitSelectedRoutes: true,
+            draggableWaypoints: false,
+            routeWhileDragging: false,
+            createMarker: function() { return null; },
+            addWaypoints: false,
         })
         router.addTo(map);
         bluePath.push(router);
@@ -140,7 +142,11 @@ function addEdge() {
                 markers[source - 1].getLatLng(),
                 markers[target - 1].getLatLng()
             ],
-            createMarker: function() { return null; }
+            fitSelectedRoutes: true,
+            draggableWaypoints: false,
+            routeWhileDragging: false,
+            createMarker: function() { return null; },
+            addWaypoints: false
         });
 
         router.addTo(map);
