@@ -7,7 +7,7 @@ class PriorityQueue {
     }
     enqueue(val) {
         this.array.push(val);
-        this.array.sort(this.compareFunction); // ? masih O(n^2) mungkin bisa di optimize
+        this.array.sort(this.compareFunction); // ? masih O(n) mungkin bisa di optimize
     }
     dequeue() {
         const val = this.front();
