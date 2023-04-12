@@ -36,6 +36,7 @@ map.on('click', function(event) {
         // tambahkan marker ke dalam array
         markers.push(marker);
         
+        // untuk membuat/mengupdate adjacency matrix
         var temp = [];
         for (let i = 0; i < markers.length-1; i++) {
             adjacencyMatrix[i].push(0)
@@ -49,6 +50,7 @@ map.on('click', function(event) {
     });
 });
 
+// fungsi untuk memvisualisasikan map
 function mapVisualize() {
     try{
         if (algo == "")throw "Select algorithm";
@@ -115,6 +117,7 @@ function makeEuclidArrayMap(endIndex) { // get all euclid distance from marker t
     return euclidArray;
 }
 
+// fungsi yang digunakan untuk menambah edge atau rute pada map
 function addEdge() {
     try {
         var source = document.getElementById("source").value;
