@@ -1,0 +1,17 @@
+8
+Paskal Shopping Centre 
+Braga
+Taman Tegalega
+RS Bhayangkara
+Taman Gasibu
+Pendopo Kota Bandung
+Pasar Induk Caringin
+Rumah Sakit Santosa
+0 2125 0 0 0 0 0 0
+0 0 3185 0 3719 2445 0 2587
+0 0 0 3060 0 0 3669 0
+0 0 0 0 8496 0 4199 0
+5639 4211 0 8443 0 4976 0 0
+0 2125 0 0 0 0 4842 0
+0 0 4033 4218 0 0 0 4858
+2202 1508 0 0 0 0 0 0
