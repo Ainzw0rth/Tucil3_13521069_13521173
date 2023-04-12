@@ -149,10 +149,18 @@ function graphVisualize() {
       .attr("y", function(d) { return d.y + 5; });
 
     linkLabels
-      .attr("x", function(d) { return (d.source.x + d.target.x) / 2; })
-      .attr("y", function(d) { return (d.source.y + d.target.y) / 2; });
+    .attr("x", function(d) { return (d.source.x + d.target.x) / 2; })
+    .attr("y", function(d) { return (d.source.y + d.target.y) / 2; })
+    .attr("dx", function(d) {
+      var angle = Math.atan2(d.target.y - d.source.y, d.target.x - d.source.x);
+      return Math.cos(angle) * 45;
+    })
+    .attr("dy", function(d) {
+      var angle = Math.atan2(d.target.y - d.source.y, d.target.x - d.source.x);
+      return Math.sin(angle) * 45;
+    })
 
-    
+    // dx dan dy untuk mendekatkan label dengan ujung panah
   });
 
   function ticked() {
