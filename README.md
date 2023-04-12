@@ -1,16 +1,19 @@
 # Tucil3_13521069_13521173
+# Implementasi Algoritma UCS dan A* untuk Menentukan Lintasan Terpendek
 
 ## Deskripsi
 Program ini adalah program untuk menentukan rute terpendek yang harus ditempuh pada graf. Program menggunakan algoritma UCS dan A* untuk mengkalkulasikan solusinya. Program juga dapat menampilkan visualisasi serta total jarak terpendek dari graf tersebut. Program juga memiliki fitur map, dimana pengguna dapat menggunakannya untuk mengaplikasikan algoritma program pada peta di dunia nyata.
 
 Input yang dapat diterima oleh program berupa file txt yang memiliki format seperti:
-n : jumlah simpul
+```
+n : jumlah simpul 
 nama1 : nama simpul pertama
     .
     .
     .
 naman : nama simpul ke-n
 matrix adjacency dari simpul-simpul tersebut
+```
 ## Requirement
 - Browser
 - Koneksi internet
