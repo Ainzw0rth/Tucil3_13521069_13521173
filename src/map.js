@@ -31,50 +31,22 @@ map.on('click', function(event) {
         var marker = L.marker(nearestPoint, {
             title: ctrmarker,
             icon: myIcon,
-            zIndexOffset: 100, // agar marker bisa diclick dan dilihat
-        }).addTo(map).bindPopup(ctrmarker);
+        }).addTo(map);
         
+        var marker = L.marker(nearestPoint).addTo(map);
         // tambahkan marker ke dalam array
         markers.push(marker);
         
-        // kalau node sudah ada 2 bisa dicari edgenya
-        // misal marker baru X, marker lama m
-        for (let i = 0; i < markers.length - 1; i++) { // cari jarak dari m ke X
-            // bruh kalo var i, malah error
-            var router = L.Routing.control({
-                waypoints: [
-                    markers[i].getLatLng(),
-                    markers[markers.length - 1].getLatLng()
-                ]
-            });
-            router.addTo(map);
-            redPath.push(router);
-
-            router.on('routesfound', function(event) {
-                var route = event.routes[0];
-                var distance = route.summary.totalDistance;
-                adjacencyMatrix[i].push(distance);
-            });
+        var temp = [];
+        for (let i = 0; i < markers.length-1; i++) {
+            adjacencyMatrix[i].push(0)
         }
 
-        adjacencyMatrix.push([]);
-        for (let i = 0; i < markers.length; i++) { // cari jarak dari X ke m
-            var router = L.Routing.control({
-                waypoints: [
-                    markers[markers.length - 1].getLatLng(),
-                    markers[i].getLatLng()
-                ]
-            });
-            router.addTo(map);
-            redPath.push(router);
-
-            router.on('routesfound', function(event) {
-                var route = event.routes[0];
-                var distance = route.summary.totalDistance;
-                adjacencyMatrix[markers.length - 1].push(distance);
-            });
+        for (let i = 0; i < markers.length; i++) {
+            temp.push(0);
         }
-        console.log(adjacencyMatrix);
+
+        adjacencyMatrix.push(temp);
     });
 });
 
@@ -137,4 +109,45 @@ function makeEuclidArrayMap(endIndex) { // get all euclid distance from marker t
     }
     console.log(euclidArray);
     return euclidArray;
+}
+
+function addEdge() {
+    try {
+        var source = document.getElementById("source").value;
+        var target = document.getElementById("target").value;
+
+        if (source == "" && target == "") throw "Select source node and target node";
+        if (source == "") throw "Select source node";
+        if (target == "") throw "Select target node";
+
+        source = parseInt(source);
+        target = parseInt(target);
+        if (isNaN(source)) throw "Source node input is not an integer";
+        if (isNaN(target)) throw "Target node input is not an integer";
+        if (source > ctrmarker && target > ctrmarker) throw "Select node that already exists for source node and target node";
+        if (source > ctrmarker) throw "Select node that already exists for source node";
+        if (target > ctrmarker) throw "Select node that already exists for target node";
+        if (source <= 0 && target <= 0) throw "Source node and target node input must be > 0";
+        if (source <= 0) throw "Source node and input must be > 0";
+        if (target <= 0) throw "Target node and input must be > 0";
+        if (source == target) throw "Select nodes that are different"
+        if (adjacencyMatrix[source - 1][target - 1] != 0) throw "Edge already exist, select a different one"
+        
+        var router = L.Routing.control({
+            waypoints: [
+                markers[source - 1].getLatLng(),
+                markers[target - 1].getLatLng()
+            ]
+        });
+
+        router.addTo(map);
+        router.on('routesfound', function(e) {
+            var route = e.routes[0];
+            var distance = route.summary.totalDistance; // distance in meters
+            adjacencyMatrix[source - 1][target - 1] = parseInt(distance);
+        });
+        console.log(adjacencyMatrix);
+    } catch (err) {
+        alert(err);
+    }
 }

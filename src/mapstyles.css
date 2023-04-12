@@ -89,8 +89,34 @@ marker {
     border-radius: 25px;
 }
 
-/* side navbar untuk input file dan node */
+/* side navbar untuk input edge dari node yang ada pada map */
 .sidenav2 {
+    height: 220px;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #292a2f;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-top: 20px;
+    box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
+    background-image: linear-gradient(to bottom right, #292a2c, #23262d);
+    margin-top: 270px;
+    margin-left: 30px;
+    border-style: solid;
+    border-width: 0px;
+    border-radius: 25px;
+    color: #ffffff;
+}
+
+.judul {
+    text-align: center;
+}
+
+/* side navbar untuk input file dan node */
+.sidenav3 {
     height: 210px;
     width: 250px;
     position: fixed;
@@ -103,7 +129,7 @@ marker {
     padding-top: 20px;
     box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
     background-image: linear-gradient(to bottom right, #292a2c, #23262d);
-    margin-top: 380px;
+    margin-top: 540px;
     margin-left: 30px;
     border-style: solid;
     border-width: 0px;
@@ -111,7 +137,7 @@ marker {
 }
 
 /* untuk output jarak */
-.sidenav3 {
+.sidenav4 {
     height: 60px;
     width: 250px;
     position: fixed;
@@ -124,7 +150,7 @@ marker {
     padding-top: 20px;
     box-shadow: 7px 10px 10px rgb(0 0 0 / 0.2);
     background-image: linear-gradient(to bottom right, #292a2c, #23262d);
-    margin-top: 750px;
+    margin-top: 800px;
     margin-left: 30px;
     border-style: solid;
     border-width: 0px;
@@ -270,7 +296,7 @@ input:checked + .slider2:before {
     cursor: pointer;
     position: relative;
     top: -20%;
-    left: 23%;
+    left: 8%;
     background-image: linear-gradient(to bottom right, #fa07ad, #6230df);
     font-family: 'Miriam Libre', sans-serif;
     font-family: 'Source Sans Pro', sans-serif;
