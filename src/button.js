@@ -117,6 +117,7 @@ function shortestPath(){
 
         const startIndex = names.indexOf(startNode);
         const endIndex = names.indexOf(endNode);
+        if (startIndex == endIndex)throw "Select nodes that are different";
 
         var euclidArray = new Array(names.length).fill(0);
         if(algo == "astar")euclidArray = makeEuclidArrayFile(endIndex);

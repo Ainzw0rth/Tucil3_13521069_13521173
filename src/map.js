@@ -64,7 +64,8 @@ function mapVisualize() {
 
         if (startIndex < 0 || startIndex >= ctrmarker)throw "Start node is not exist";
         if (endIndex < 0 || endIndex >= ctrmarker)throw "End node is not exist";
-
+        if (startIndex == endIndex)throw "Select nodes that are different";  
+    
         var euclidArray = new Array(markers.length).fill(0);
         if(algo == "astar")euclidArray = makeEuclidArrayMap(endIndex);
         const path = pathFinding(adjacencyMatrix, startIndex, endIndex, euclidArray);
@@ -94,7 +95,8 @@ function mapVisualizePath(path) {
             ],
             lineOptions: {
             styles: [{color: 'blue', opacity: 0.7, weight: 5}]
-            }
+            },
+            createMarker: function() { return null; }
         })
         router.addTo(map);
         bluePath.push(router);
@@ -137,7 +139,8 @@ function addEdge() {
             waypoints: [
                 markers[source - 1].getLatLng(),
                 markers[target - 1].getLatLng()
-            ]
+            ],
+            createMarker: function() { return null; }
         });
 
         router.addTo(map);
