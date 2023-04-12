@@ -43,7 +43,7 @@ var links2 = [
   {source: "12", target: "10", distance: "140"},
 ];
 
-
+// fungsi untuk memvisualisasi graf
 function graphVisualize() {
   // reset svgnya terlebih dahulu
   svg.selectAll("*").remove();
@@ -57,6 +57,7 @@ function graphVisualize() {
     .force("center", d3.forceCenter(width / 2, height / 2))
     .on("tick", ticked);
     
+  // atur edge
   var link = svg
     .append("g")
     .attr("class", "links")
@@ -75,6 +76,7 @@ function graphVisualize() {
       }
     });
 
+  // tambahkan label di edgenya
   var linkLabels = svg.selectAll(".link-label")
     .data(links)
     .enter()
@@ -82,6 +84,7 @@ function graphVisualize() {
     .attr("class", "link-label")
     .text(function(d) { return d.distance; });
 
+  // atur node
   var node = svg
     .append("g")
     .attr("class", "nodes")
@@ -98,7 +101,8 @@ function graphVisualize() {
         .on("drag", dragged)
         .on("end", dragended)
     );
-    
+  
+  // atur arrow head untuk edge solusi
   svg.append("defs").append("marker")
     .attr("id", "arrow-blue")
     .attr("viewBox", "0 -5 10 10")
@@ -111,6 +115,7 @@ function graphVisualize() {
     .attr("fill", "blue")
     .attr("d", "M0,-5L10,0L0,5");
 
+  // atur arrow head untuk edge biasa
   svg.append("defs").append("marker")
     .attr("id", "default")
     .attr("viewBox", "0 -5 10 10")
@@ -122,7 +127,8 @@ function graphVisualize() {
     .append("path")
     .attr("fill", "grey")
     .attr("d", "M0,-5L10,0L0,5");
-
+    
+  // atur nama dari node
   var nodelabel = svg.selectAll(".node-label")
     .data(nodes)
     .enter()
@@ -153,7 +159,7 @@ function graphVisualize() {
       .attr("x", function(d) { return d.x + 26; })
       .attr("y", function(d) { return d.y + 5; });
 
-    linkLabels
+    linkLabels // LABEL DARI EDGE AKAN BERADA DEKAT ARROW HEAD
     .attr("x", function(d) { return (d.source.x + d.target.x) / 2; })
     .attr("y", function(d) { return (d.source.y + d.target.y) / 2; })
     .attr("dx", function(d) {
@@ -212,6 +218,7 @@ function graphVisualize() {
 }
 
 // utility functions
+// untuk mengecek apakah ada data pada list links
 function isItInList(links, data){
   for (let i = 0; i < links.length; i++) {
     if (links[i].source === data.source.name && links[i].target === data.target.name && links[i].distance === data.distance) {
@@ -221,6 +228,7 @@ function isItInList(links, data){
   return false;
 }
 
+// untuk mengatur skala
 function setScale(adjMatrix) {
   var minVal = Number.MAX_VALUE;
   var maxVal = 0;
